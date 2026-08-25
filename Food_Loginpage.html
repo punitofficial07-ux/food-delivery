@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Foodie Login · delicious</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f7efe8;
+            background-image: radial-gradient(circle at 10% 30%, #fdf6f0 0%, #ecdccc 80%);
+            padding: 0.5rem;
+        }
+
+        .login-card {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            width: 100%;
+            background: rgba(255, 250, 245, 0.80);
+            backdrop-filter: blur(12px);
+            border-radius: 64px 64px 64px 64px;
+            box-shadow: 0 40px 70px rgba(110, 70, 40, 0.12),
+                        0 16px 32px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+            border: 1px solid rgba(255, 215, 180, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .hero-side {
+            flex: 1 1 44%;
+            background: linear-gradient(145deg, #f9ede2, #f3e1d2);
+            padding: 2.8rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            min-height: 360px;
+        }
+
+        .hero-side .food-mosaic {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.8rem 1.4rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-side .food-mosaic i {
+            font-size: 3.6rem;
+            color: #d47c4a;
+            filter: drop-shadow(0 8px 16px rgba(190, 120, 70, 0.18));
+            transition: transform 0.25s ease, color 0.2s;
+        }
+
+        .hero-side .food-mosaic i:hover {
+            transform: translateY(-6px) rotate(3deg);
+            color: #b85f2e;
+        }
+
+        .hero-side h2 {
+            font-weight: 700;
+            font-size: 2.4rem;
+            letter-spacing: -0.5px;
+            color: #362419;
+            margin-bottom: 0.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .hero-side h2 span {
+            background: #d68f5e;
+            color: white;
+            padding: 0.1rem 1rem;
+            border-radius: 60px;
+            font-size: 1.7rem;
+            letter-spacing: 1px;
+        }
+
+        .hero-side .tagline {
+            font-weight: 400;
+            color: #5f4530;
+            font-size: 1.1rem;
+            max-width: 260px;
+            text-align: center;
+            line-height: 1.5;
+            margin-top: 0.6rem;
+            background: rgba(255, 235, 215, 0.5);
+            padding: 0.5rem 1.2rem;
+            border-radius: 60px;
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(210, 160, 120, 0.2);
+        }
+
+        .hero-side .floating-food {
+            position: absolute;
+            bottom: 12px;
+            right: 18px;
+            font-size: 4.8rem;
+            opacity: 0.08;
+            pointer-events: none;
+            transform: rotate(10deg);
+        }
+
+        .form-side {
+            flex: 1 1 56%;
+            padding: 3rem 2.8rem;
+            background: rgba(255, 252, 248, 0.6);
+            backdrop-filter: blur(6px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-side .welcome {
+            margin-bottom: 2rem;
+        }
+
+        .form-side .welcome h1 {
+            font-weight: 700;
+            font-size: 2.3rem;
+            color: #2b1f15;
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-side .welcome h1 i {
+            color: #d47c4a;
+            font-size: 2rem;
+        }
+
+        .form-side .welcome p {
+            color: #7a624b;
+            font-weight: 400;
+            margin-top: 0.2rem;
+            font-size: 1.05rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.6rem;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #4d3825;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.4px;
+        }
+
+        .input-group label i {
+            margin-right: 0.6rem;
+            color: #c58255;
+            width: 1.2rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.95rem 1.4rem;
+            font-size: 1rem;
+            border: 2px solid #ecdacb;
+            border-radius: 60px;
+            background: white;
+            outline: none;
+            transition: all 0.2s ease;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 500;
+            color: #1f160f;
+            background: #fffcf8;
+        }
+
+        .input-group input:focus {
+            border-color: #d68f5e;
+            box-shadow: 0 0 0 5px rgba(214, 143, 94, 0.12);
+            background: #ffffff;
+        }
+
+        .input-group input::placeholder {
+            color: #b99b84;
+            font-weight: 400;
+            font-size: 0.95rem;
+        }
+
+        .row-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1.2rem 0 2rem;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .row-actions .remember {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.95rem;
+            color: #4d3825;
+            font-weight: 500;
+        }
+
+        .row-actions .remember input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #d68f5e;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .row-actions a {
+            color: #a5693b;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.95rem;
+            border-bottom: 2px solid transparent;
+            transition: 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .row-actions a:hover {
+            border-bottom-color: #d68f5e;
+            color: #7d4f2b;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 1rem;
+            background: #d47c4a;
+            border: none;
+            border-radius: 60px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: white;
+            font-family: 'Quicksand', sans-serif;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 10px 22px rgba(212, 124, 74, 0.28);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+
+        .btn-login i {
+            font-size: 1.2rem;
+        }
+
+        .btn-login:hover {
+            background: #be6a3b;
+            transform: scale(1.01);
+            box-shadow: 0 14px 28px rgba(190, 106, 59, 0.30);
+        }
+
+        .btn-login:active {
+            transform: scale(0.97);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0 1.2rem;
+            color: #b3927a;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #dbb594, transparent);
+        }
+
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 0.2rem 0 0.8rem;
+        }
+
+        .social-login a {
+            background: #f7ede4;
+            color: #4d3825;
+            width: 56px;
+            height: 56px;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: 1px solid #eddccc;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+
+        .social-login a:hover {
+            background: #dbaa83;
+            color: white;
+            transform: translateY(-5px);
+            border-color: #c58b62;
+            box-shadow: 0 14px 24px rgba(180, 120, 80, 0.12);
+        }
+
+        .signup-tip {
+            text-align: center;
+            margin-top: 1.8rem;
+            color: #5f4a33;
+            font-weight: 500;
+        }
+
+        .signup-tip a {
+            color: #b15926;
+            font-weight: 700;
+            text-decoration: none;
+            margin-left: 0.3rem;
+            border-bottom: 2px solid transparent;
+            transition: 0.15s;
+        }
+
+        .signup-tip a:hover {
+            border-bottom-color: #b15926;
+        }
+
+        @media screen and (max-width: 780px) {
+            .login-card {
+                border-radius: 44px;
+                flex-direction: column;
+            }
+
+            .hero-side {
+                padding: 2rem 1.5rem;
+                min-height: 220px;
+            }
+
+            .hero-side .food-mosaic i {
+                font-size: 2.8rem;
+            }
+
+            .hero-side h2 {
+                font-size: 2rem;
+            }
+            .hero-side h2 span {
+                font-size: 1.4rem;
+                padding: 0.1rem 0.8rem;
+            }
+
+            .form-side {
+                padding: 2.2rem 1.8rem;
+            }
+
+            .form-side .welcome h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .login-card {
+                border-radius: 32px;
+            }
+
+            .hero-side .food-mosaic {
+                gap: 0.5rem 0.9rem;
+            }
+            .hero-side .food-mosaic i {
+                font-size: 2.2rem;
+            }
+
+            .row-actions {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.8rem;
+            }
+
+            .btn-login {
+                font-size: 1.1rem;
+                padding: 0.85rem;
+            }
+
+            .social-login a {
+                width: 48px;
+                height: 48px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body><form action="index.html">
+    <div class="login-card">
+        <div class="hero-side">
+            <div class="food-mosaic">
+                <i class="fas fa-utensils"></i>
+                <i class="fas fa-pizza-slice"></i>
+                <i class="fas fa-hamburger"></i>
+                <i class="fas fa-coffee"></i>
+                <i class="fas fa-bread-slice"></i>
+                <i class="fas fa-cocktail"></i>
+                <i class="fas fa-fish"></i>
+                <i class="fas fa-cheese"></i>
+            </div>
+            <h2>taste <span>login</span></h2>
+            <div class="tagline">
+                <i class="fas fa-seedling" style="margin-right: 6px;"></i> fresh · seasonal · delicious
+            </div>
+            <div class="floating-food">
+                <i class="fas fa-egg"></i>
+            </div>
+        </div>
+
+        <div class="form-side">
+            <div class="welcome">
+                <h1><i class="fas fa-utensil-spoon"></i>Food Wagon</h1>
+                <p>sign in to your recipe collection</p>
+            </div>
+
+            <form action="#" method="POST">
+                <div class="input-group">
+                    <label for="email"><i class="fas fa-envelope"></i> Email</label>
+                    <input type="email" id="email" placeholder="hello@taste.com" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="password"><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" id="password" placeholder="••••••••" required>
+                </div>
+
+                <div class="row-actions">
+                    <label class="remember">
+                        <input type="checkbox" checked> Keep me signed in
+                    </label>
+                    <a href="#"><i class="fas fa-leaf"></i> Forgot taste?</a>
+                </div>
+
+                <button type="submit" class="btn-login">
+                    <i class="fas fa-arrow-right-to-bracket"></i> Sign in
+                </button>
+            </form>
+
+            <div class="divider">or connect with</div>
+
+            <div class="social-login">
+                <a href="#" aria-label="Google"><i class="fab fa-google"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Apple"><i class="fab fa-apple"></i></a>
+            </div>
+
+            <div class="signup-tip">
+                new to the kitchen? <a href="#">create account <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+    </form>
+</body>
+</html>
